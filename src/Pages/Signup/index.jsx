@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 import { useHistory } from "react-router-dom";
 import { authSuccess } from '../../redux/authentication/authActions'
 import {useDispatch} from "react-redux"
+
 const Signup = () => {
   const dispatch = useDispatch()
   const history = useHistory();

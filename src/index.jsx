@@ -15,6 +15,10 @@ import Signup from './Pages/Signup'
 import Login from "./Pages/Login"
 import {Provider} from "react-redux"
 import store from "./redux/store"
+import Admin from './Pages/Admin'
+import Formation from './Pages/AdminFormation'
+import Session from './Pages/AdminSession'
+import UserGestion from './Pages/AdminUserGestion'
 
 const App = () => {
   const [cookie, setCookie] = useState('')
@@ -43,6 +47,18 @@ const App = () => {
                 </Route>
                 <Route exact path="/">
                   <Home />
+                  </Route>
+                  <Route exact path="/admin">
+                  <Admin/>
+                </Route>
+                <Route exact path="/admin/formation"> 
+                <Formation/>
+                </Route>
+                <Route exact path="/admin/session"> 
+                <Session/>
+                </Route>
+                <Route exact path="/admin/users-gestion"> 
+                <UserGestion/>
                 </Route>
               </Switch>
             </div>

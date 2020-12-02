@@ -1,9 +1,10 @@
 import {Form, Button} from 'react-bootstrap'
 import Cookies from 'js-cookie'
 import { useHistory } from "react-router-dom";
-
+import { authSuccess } from '../../redux/authentication/authActions'
+import {useDispatch} from "react-redux"
 const Signup = () => {
-
+  const dispatch = useDispatch()
   const history = useHistory();
   const registration = () => {
     const data = { user: {
@@ -14,9 +15,7 @@ const Signup = () => {
         password: document.getElementById('password').value
       }
     };
-    console.log(data)
-    console.log(JSON.stringify(data))
-    fetch('http://localhost:3001/signup', {
+    fetch('https://api-rails-form-you.herokuapp.com/signup', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -32,9 +31,9 @@ const Signup = () => {
       return response.json()
     })
     .then((response) => {
-      console.log(response)
-      console.log(Cookies.get("token"))
+      dispatch(authSuccess(response))
       history.push('/')
+    
     })
   
     .catch((error) => console.log(error))
@@ -64,8 +63,8 @@ const Signup = () => {
         <Form.Group controlId="exampleForm.ControlSelect1">
           <Form.Label>Select your status</Form.Label>
           <Form.Control as="select" id="status">
-            <option>Student</option>
-            <option>Teacher</option>
+            <option>student</option>
+            <option>teacher</option>
           </Form.Control>
         </Form.Group>
 

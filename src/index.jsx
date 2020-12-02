@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import {
@@ -13,35 +13,42 @@ import Profil from './Pages/Profile'
 import FormationDetail from "./Pages/FormationDetail"
 import Signup from './Pages/Signup'
 import Login from "./Pages/Login"
+import {Provider} from "react-redux"
+import store from "./redux/store"
+
 const App = () => {
+  const [cookie, setCookie] = useState('')
+
   return (
-    <Router>
-      <main>
-        <NavBar />
-          <div>
-            <Switch>
-              <Route path="/formation-detail/:formation_title">
-                <FormationDetail />
-              </Route>
-              <Route path="/signup">
-                <Signup />
-              </Route>    
-              <Route path="/login">
-                <Login />
-              </Route>               
-              <Route path="/calendar">
-                <Calendar />
-              </Route>
-              <Route path="/profil">
-                <Profil />
-              </Route>
-              <Route exact path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </div>
-        </main>
-      </Router>
+    <Provider store={store}>
+      <Router>
+        <main>
+          <NavBar onClickLogout={() => setCookie('cookie removed')}/>
+            <div>
+              <Switch>
+                <Route path="/formation-detail/:formation_title">
+                  <FormationDetail />
+                </Route>
+                <Route path="/signup">
+                  <Signup />
+                </Route>    
+                <Route path="/login">
+                  <Login />
+                </Route>               
+                <Route path="/calendar">
+                  <Calendar />
+                </Route>
+                <Route path="/profil">
+                  <Profil />
+                </Route>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+              </Switch>
+            </div>
+          </main>
+        </Router>
+      </Provider>
   )
 }
 

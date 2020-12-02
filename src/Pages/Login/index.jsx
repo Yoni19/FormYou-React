@@ -1,8 +1,15 @@
 import {Form, Button} from 'react-bootstrap'
 import Cookies from 'js-cookie'
 import { useHistory } from "react-router-dom";
+import React, {useState, useEffect} from 'react';
+import { authSuccess } from '../../redux/authentication/authActions'
+import {useDispatch} from "react-redux"
+
 
 const Login = () => {
+
+const [userId, setUserId] = useState("rien");
+const dispatch = useDispatch()
 
   const history = useHistory();
   const registration = () => {
@@ -13,7 +20,7 @@ const Login = () => {
     };
     console.log(data)
     console.log(JSON.stringify(data))
-    fetch('http://localhost:3001/login', {
+    fetch('https://api-rails-form-you.herokuapp.com/login', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -29,8 +36,9 @@ const Login = () => {
       return response.json()
     })
     .then((response) => {
-      console.log(response)
-      console.log(Cookies.get("token"))
+      dispatch(authSuccess(response))
+      setUserId(`${response.data.id}`)
+      console.log("l'id est:",userId)
       history.push('/')
     })
   

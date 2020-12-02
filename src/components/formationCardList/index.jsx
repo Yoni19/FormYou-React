@@ -6,7 +6,7 @@ const PageList = () => {
  
   const [formations, setFormation] = useState([]);
     const fetchList = () => {
-      fetch("http://localhost:3001/formations")
+      fetch("https://api-rails-form-you.herokuapp.com//formations")
         .then((response) => response.json())
         .then((response) => {
         setFormation(response)

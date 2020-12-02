@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -29,8 +29,7 @@ import { useHistory } from "react-router-dom";
 //     .catch((error) => console.log(error))
 // }
 
-const NavBar = () => {
-
+const NavBar = (props) => {
 
 
   const isLogged = () => {
@@ -40,18 +39,21 @@ const NavBar = () => {
       return (
         <div>
           <Button className="btn btn-danger btn-sm mr-2" onClick={() => {  
-            fetch('http://localhost:3001/logout', {
-      method: 'delete',
-      Baerer: {
-        'token': `${Cookies.get("token")}`, 
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((response) => {
-      console.log(response)
-      console.log(Cookies.get("token"))
-    })
-    .catch((error) => console.log(error))}} >Se déconnecter</Button>
+            fetch('https://api-rails-form-you.herokuapp.com/logout', {
+                method: 'delete',
+                Bearer: {
+                  'token': `${Cookies.get("token")}`, 
+                  'Content-Type': 'application/json'
+                }
+              
+              }
+              )
+              .then((response) => {
+                console.log(response)
+                console.log(Cookies.get("token"))
+              })
+              .catch((error) => console.log(error));
+              Cookies.remove("token")}} >Se déconnecter</Button>
         </div>
       )
     } else {

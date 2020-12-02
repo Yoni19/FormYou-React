@@ -5,6 +5,12 @@ export const authSuccess = (response) => {
         type: AUTHENTICATION_SUCCESS,
         id: response.data.id,
         attributes: response.data.attributes,
-        user: response
+        user: response,
     };
 };
+
+export const logoutSuccess = () => {
+    return {
+        type: LOGOUT_SUCCESS
+    }
+}

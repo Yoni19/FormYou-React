@@ -87,7 +87,7 @@ const getInformations = () => {
       <p>lastname : {lastName}</p>
 
 
-  <Form style={{width: "45%", marginTop: "50px"}} >
+  <Form style={{width: "45%", marginTop: "50px"}} onSubmit={() => editProfile()}>
         <Form.Group controlId="formBasicEmail" >
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" id="email"/>

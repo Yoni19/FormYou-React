@@ -8,7 +8,8 @@ import {
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import Cookies from 'js-cookie'
 import { useHistory } from "react-router-dom";
- 
+import { useSelector, useDispatch } from "react-redux" 
+import { logoutSuccess } from '../../redux/authentication/authActions'
 
 
 
@@ -30,9 +31,16 @@ import { useHistory } from "react-router-dom";
 // }
 
 const NavBar = (props) => {
-
+ 
+  const isLoggedIn = useSelector(state => state.isLoggedIn)
+  const dispatch = useDispatch()
+  const history = useHistory();
+  useEffect(() => {
+    isLogged()
+  }, [isLoggedIn])
 
   const isLogged = () => {
+  
     if (Cookies.get("token")) {
       console.log("cookie exists");
       console.log(Cookies.get("token"));
@@ -51,9 +59,12 @@ const NavBar = (props) => {
               .then((response) => {
                 console.log(response)
                 console.log(Cookies.get("token"))
+                history.push("/")
               })
               .catch((error) => console.log(error));
-              Cookies.remove("token")}} >Se déconnecter</Button>
+              Cookies.remove("token")
+              dispatch(logoutSuccess())}} >Se déconnecter</Button>;
+              
         </div>
       )
     } else {

@@ -8,9 +8,8 @@ import React, { useEffect, useState } from "react";
 const Session = () => {
   const [userslist, setUsersList] = useState([]);
   const tokenCookie = Cookies.get('token')
+ 
   const fetchingUsers = () =>{
-
-
       fetch("https://api-rails-form-you.herokuapp.com//users")
         .then((response) => response.json())
         .then((response) => {

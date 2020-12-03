@@ -21,16 +21,15 @@ import Session from './Pages/AdminSession'
 import UserGestion from './Pages/AdminUserGestion'
 
 const App = () => {
-  const [cookie, setCookie] = useState('')
 
   return (
     <Provider store={store}>
       <Router>
         <main>
-          <NavBar onClickLogout={() => setCookie('cookie removed')}/>
+          <NavBar/>
             <div>
               <Switch>
-                <Route path="/formation-detail/:formation_title">
+                <Route path="/formations/:id">
                   <FormationDetail />
                 </Route>
                 <Route path="/signup">

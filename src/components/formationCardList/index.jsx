@@ -48,7 +48,7 @@ const PageList = () => {
     
     return (
       <>
-        <input className="form-control" type="text" placeholder="Search.." onChange={(e) => setInputValue(e.currentTarget.value)}/>
+        <input className="form-control my-2" type="text" placeholder="Search.." onChange={(e) => setInputValue(e.currentTarget.value)}/>
         <select className="form-control" id="exampleFormControlSelect1" onChange={(e) => setChosenCategory(e.currentTarget.value)}>
           <option value="">Want to choose a category ?</option>
           {categories.map((category) => {
@@ -57,7 +57,7 @@ const PageList = () => {
         </select>
         <div className= "Formations row wrap justify-content-between mx-4 my-4">
           {formations.map((formation) => {
-              return <FormationCard title={formation.title} description={formation.description} />
+              return <FormationCard title={formation.title} description={formation.description} id={formation.id}/>
           })}
         </div>
       </>

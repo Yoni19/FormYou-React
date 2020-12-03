@@ -2,10 +2,11 @@ import React, {useEffect, useState} from "react";
 import Cookies from 'js-cookie';
 import { useSelector } from "react-redux";
 import {Form, Button} from 'react-bootstrap'
+import {useHistory} from 'react-router-dom'
 
 const Profile = () => {
+  const history = useHistory();
   const userId = useSelector(state => state.id)
-  console.log(userId)
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -30,8 +31,13 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    if (userId){
     getInformations();
     loadSessions()
+    } else {
+      alert('You need to login again')
+      history.push('/')
+    }
   }, [])
 
   const loadSessions = () => {
@@ -59,9 +65,15 @@ const Profile = () => {
       <div id="sessions">
         {sessions.map((session) => {
           return (
-            session.date
+              <div class="media my-5 ml-4" style={{border: "solid grey 1px", width: "40%"}}>
+                <div class="media-body">
+                  <h5 class="mt-0 mb-1">Date : {session.date}</h5>
+                  <p>Capacité : {session.capacity}</p>
+                  <p>Salle : {session.room_id}</p>
+                </div>
+              </div>    
           )})
-          }
+        }
       </div>
     </>
   )

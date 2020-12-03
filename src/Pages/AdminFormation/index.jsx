@@ -1,4 +1,4 @@
-import {Form, Button} from 'react-bootstrap'
+import {Form, Button, Table} from 'react-bootstrap'
 import Cookies from 'js-cookie'
 import { useHistory } from "react-router-dom";
 import { authSuccess } from '../../redux/authentication/authActions'
@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 const Formation = () => {
   const history = useHistory();
   const tokenCookie = Cookies.get('token')
+  const [formationList, setFormationList] = useState([])
 
   const CreateFormation = () =>{
       const data = { formation: {
@@ -30,6 +31,31 @@ const Formation = () => {
       .catch((error) => console.log(error))
     }
 
+    const fetchFormations = () => {
+      fetch('https://api-rails-form-you.herokuapp.com/formations')
+      .then((response) => response.json())
+      .then((response) => {
+        setFormationList(response)
+      })
+      .catch((error) => console.log(error))
+    }
+
+    useEffect(() => {
+      fetchFormations()
+      console.log(formationList)
+    }, [])
+
+    const handleClickDelete = (formationId) => {
+      fetch(`https://api-rails-form-you.herokuapp.com/formations/${formationId}`, {
+        method: 'delete',
+        headers: {
+          'Authorization': `${tokenCookie}`, 
+          'Content-Type': 'application/json'
+        },
+      })
+      .then((response) => fetchFormations())
+      .catch((error) => console.log(error))
+    }
 
   return (
     <>
@@ -51,6 +77,30 @@ const Formation = () => {
         <Button variant="primary" type="submit">
           Créer
         </Button>
+        <h1 className="text-center my-4">Voici la liste des utilisateurs du site </h1>
+        <Table striped bordered hover size="sm">
+          
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {formationList.map((formation) => {
+                return  (
+                  <tr>
+                    <td>{formation.id}</td>
+                    <td>{formation.title}</td>
+                    <td className="text-center"><Button className="btn btn-danger" onClick={() => handleClickDelete(formation.id)}>Delete</Button></td>
+                  </tr>
+                )
+            })}
+          </tbody>
+
+
+          </Table>
       </Form>
 
     
